@@ -150,8 +150,9 @@ public class TicTacToeManager {
 		Random rand = new Random();
 
 		while(true) {
-			// generate a number between [0 - (grid.row()-1)].
+			// generate a number between [0 - (grid.rows()-1)].
 			int row = rand.nextInt(this.grid.getRows());
+			// generate a number between [0 - (grid.columns()-1)].
 			int col = rand.nextInt(this.grid.getColumns());
 
 			String position = this.grid.getGridValue(row, col);
@@ -199,19 +200,27 @@ public class TicTacToeManager {
 
 		//2. initialize computer
 		Player computer = new Player("Computer", "O");
+		
 		//3. create Gird
 		Grid grid = new Grid(3, 3);
+		
+		//4. initialize tic tac toe manager
 		TicTacToeManager ticTacToeManager = new TicTacToeManager(grid, user, computer);
-		//4. let user know tic tac toe is about to start
+		
+		//5. initialize number of turns
+		int turnsleft = ticTacToeManager.getGrid().getRows() * ticTacToeManager.getGrid().getColumns();
+		
+		//6. let user know tic tac toe is about to start
 		System.out.println("Get ready to play tic tac toe " + user.getName() + "!");
 		System.out.println("You will be " + user.getSymbol() + ".");
 		System.out.println("Press 'a' to rest the game at any time or 'b' to exit the game completely.");
-		//5. initialize grid
+		
+		//7. initialize grid
 		ticTacToeManager.getGrid().initializeGrid();
 		Player currentPlayer = user;
 
 		boolean isGameOver = ticTacToeManager.isGameOver();
-		//6. Start game
+		//8. Start game
 		while(!isGameOver) {
 			
 			if(!currentPlayer.equals(computer)) {
@@ -232,9 +241,11 @@ public class TicTacToeManager {
 				if(!ticTacToeManager.fillPosition(positionToFillInGrid, currentPlayer)) {
 					continue;
 				}
+				turnsleft--;
 			} else {
 				//this means computer is playing.
 				ticTacToeManager.computersTurn(currentPlayer);
+				turnsleft--;
 			}
 
 			//c. check if game has been won
@@ -243,6 +254,8 @@ public class TicTacToeManager {
 				scanner.close();
 				System.out.println(currentPlayer.getName() + " won the game!");
 				System.exit(0);
+			} else if(turnsleft == 0) {
+				System.out.println("Its a draw!");
 			}
 			currentPlayer = ticTacToeManager.switchPlayer(currentPlayer,user,computer);
 		}
