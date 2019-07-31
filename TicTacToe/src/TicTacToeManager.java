@@ -223,6 +223,7 @@ public class TicTacToeManager {
 					ticTacToeManager.getGrid().initializeGrid();
 					continue;
 				} else if(positionToFillInGrid.equals("b")) {
+					scanner.close();
 					System.out.println("Thank you for playing!");
 					System.exit(0);
 				}
@@ -239,7 +240,9 @@ public class TicTacToeManager {
 			//c. check if game has been won
 			isGameOver = ticTacToeManager.isGameOver();
 			if(isGameOver) {
+				scanner.close();
 				System.out.println(currentPlayer.getName() + " won the game!");
+				System.exit(0);
 			}
 			currentPlayer = ticTacToeManager.switchPlayer(currentPlayer,user,computer);
 		}
