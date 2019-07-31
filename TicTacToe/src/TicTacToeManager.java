@@ -230,7 +230,7 @@ public class TicTacToeManager {
 				if(positionToFillInGrid.equals("a")) {
 					System.out.println("Board has been reset");
 					ticTacToeManager.getGrid().initializeGrid();
-					turnsleft = ticTacToeManager.getGrid().getRows() * ticTacToeManager.getGrid().getColumns(); 
+					turnsleft = ticTacToeManager.getGrid().getRows() * ticTacToeManager.getGrid().getColumns();
 					continue;
 				} else if(positionToFillInGrid.equals("b")) {
 					scanner.close();
